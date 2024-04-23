@@ -1,4 +1,4 @@
-# movieRecommendationService
+# TurtleFlix
 경기대학교 소프트웨어공학 팀 프로젝트 7조 터틀플릭스(TurtleFlix)입니다.
 
 프로젝트 목표 - 사용자 맞춤 영화 추천 제공, 효율적 영화 검색 기능 구현, 사용자 친화적 인터페이스 개발
