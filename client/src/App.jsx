@@ -1,7 +1,7 @@
-import { Button } from '@material-tailwind/react';
+import { Button } from '@material-tailwind/react'
 
 function App() {
-  return <Button>Button</Button>;
+  return <Button>Button</Button>
 }
 
-export default App;
+export default App
