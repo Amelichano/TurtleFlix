@@ -1,14 +1,30 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import './index.css'
 
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from '@material-tailwind/react'
+
+import Root from './routes/root'
+import Register from './routes/register'
+import Login from './routes/login'
+
+const router = createBrowserRouter([
+  { path: '/', element: <Root /> },
+  {
+    path: '/register',
+    element: <Register />,
+  },
+  {
+    path: '/login',
+    element: <Login />,
+  },
+])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider>
-      <App />
+      <RouterProvider router={router} />
     </ThemeProvider>
   </React.StrictMode>,
 )
