@@ -75,7 +75,7 @@ function RegisterForm() {
         </Button>
         <Typography color="gray" className="text-center">
           이미 계정이 있으신가요?{' '}
-          <a href="#" className="font-medium text-gray-900">
+          <a href="/login" className="font-medium text-gray-900">
             로그인
           </a>
         </Typography>
