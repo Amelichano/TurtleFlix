@@ -25,17 +25,18 @@ public class RequestInterceptor implements HandlerInterceptor{
 
         HttpSession session = request.getSession(false);
         if (Objects.isNull(session) || Objects.isNull(session.getAttribute("SESSION_KEY"))) {
-            if (Objects.equals(request.getMethod(), "GET") && PatternMatchUtils.simpleMatch("/api/**", request.getRequestURI())) {
+            if (Objects.equals(request.getMethod(), "GET") && PatternMatchUtils.simpleMatch("/**", request.getRequestURI())) {
                 return true;
             }
 
             log.info("미인증 사용자 요청");
             String errorResponseToJSON = objectMapper.writeValueAsString(ErrorResponse.of(AUTHENTICATION_USER));
 
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.getWriter().write(errorResponseToJSON);  response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(errorResponseToJSON);
+
+
             return false;
         }
 
