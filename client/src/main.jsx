@@ -8,6 +8,7 @@ import { ThemeProvider } from '@material-tailwind/react'
 import Root from './routes/root'
 import Register from './routes/register'
 import Login from './routes/login'
+import Search from './routes/search'
 
 const router = createBrowserRouter([
   { path: '/', element: <Root /> },
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/search',
+    element: <Search />,
   },
 ])
 
