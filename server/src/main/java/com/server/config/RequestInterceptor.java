@@ -32,10 +32,10 @@ public class RequestInterceptor implements HandlerInterceptor{
             log.info("미인증 사용자 요청");
             String errorResponseToJSON = objectMapper.writeValueAsString(ErrorResponse.of(AUTHENTICATION_USER));
 
-            response.getWriter().write(errorResponseToJSON);  response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-
+            response.getWriter().write(errorResponseToJSON);
 
             return false;
         }
