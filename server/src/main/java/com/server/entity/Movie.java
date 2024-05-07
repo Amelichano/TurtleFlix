@@ -18,7 +18,7 @@ public class Movie {
     private long id;
     private String title;
     private Long tmbdId;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Genre> genres;
 
 
