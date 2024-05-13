@@ -1,19 +1,25 @@
-import { useEffect } from 'react'
-import MovieCard from '../components/movie-card'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
-import { MOVIE_DATA } from '../data/movie'
+import MovieCard from '../components/movie-card'
 import { getSearch } from '../api/search'
 
 function Search() {
-  useEffect(() => {
-    const result = getSearch('horror', 's')
+  const [searchParams] = useSearchParams()
+  const genre = searchParams.get('genre')
+  const title = searchParams.get('title')
 
-    console.log(result)
-  }, [])
+  const [movies, setMovies] = useState([])
+
+  useEffect(() => {
+    getSearch(genre, title).then((data) => {
+      setMovies(data)
+    })
+  }, [genre, title])
 
   return (
     <div className="grid grid-cols-1 justify-items-center gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {MOVIE_DATA.map((movie) => (
+      {movies.map((movie) => (
         <MovieCard key={`movie-${movie.id}`} movie={movie} />
       ))}
     </div>

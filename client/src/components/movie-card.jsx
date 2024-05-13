@@ -4,7 +4,6 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
-  Typography,
   Button,
 } from '@material-tailwind/react'
 import { getDetails } from '../api/movies'
@@ -14,7 +13,7 @@ function MovieCard({ movie }) {
   const [details, setDetails] = useState('')
 
   useEffect(() => {
-    const data = getDetails(movie.tmdbid).then((data) => {
+    getDetails(movie.tmbdId).then((data) => {
       setDetails(data)
     })
   }, [])
@@ -36,10 +35,10 @@ function MovieCard({ movie }) {
         </p>
       </CardBody>
       <CardFooter className="flex gap-4 pt-0">
-        <Link to={`https://www.themoviedb.org/movie/${movie.tmdbid}`}>
+        <Link to={`https://www.themoviedb.org/movie/${movie.tmbdId}`}>
           <Button color="blue">TMDB</Button>
         </Link>
-        <Link to={`${movie.imdbid}`}>
+        <Link to={`https://www.imdb.com/title/${details.imdb_id}`}>
           <Button color="yellow">IMDB</Button>
         </Link>
       </CardFooter>
