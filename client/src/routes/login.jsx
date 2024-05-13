@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Card, Typography, Alert } from '@material-tailwind/react'
 
 import LoginForm from '../components/login-form'
+import { postLogIn } from '../api/user'
 
 function Login() {
   const [id, setId] = useState('')
@@ -24,6 +25,14 @@ function Login() {
 
   const login = () => {
     if (hasCredential()) {
+      postLogIn(id, password)
+        .then((res) => {
+          sessionStorage.setItem('session', JSON.stringify(res))
+          window.location.href = '/'
+        })
+        .catch((err) => {
+          setMessage('로그인 실패!')
+        })
     }
   }
 
@@ -66,4 +75,5 @@ function Login() {
     </div>
   )
 }
+
 export default Login
