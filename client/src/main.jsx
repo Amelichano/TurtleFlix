@@ -10,7 +10,15 @@ import Register from './routes/register'
 import Login from './routes/login'
 import Search from './routes/search'
 
-const router = createBrowserRouter([
+const identifiedRouter = createBrowserRouter([
+  { path: '/', element: <Root /> },
+  {
+    path: '/search',
+    element: <Search />,
+  },
+])
+
+const unidentifiedRouter = createBrowserRouter([
   { path: '/', element: <Root /> },
   {
     path: '/register',
@@ -20,11 +28,11 @@ const router = createBrowserRouter([
     path: '/login',
     element: <Login />,
   },
-  {
-    path: '/search',
-    element: <Search />,
-  },
 ])
+
+const router = sessionStorage.getItem('session')
+  ? identifiedRouter
+  : unidentifiedRouter
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
