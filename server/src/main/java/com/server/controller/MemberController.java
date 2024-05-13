@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
+import static com.server.SessionFactory.SESSION_KEY;
 import static com.server.exception.ErrorCode.AUTHENTICATION_USER;
 
 @RestController
@@ -35,7 +36,7 @@ public class MemberController {
     public LoginResponseDto login(@Valid @RequestBody LoginFormDto loginFormDto, HttpServletRequest request){
         MemberSessionDto memberSession = memberService.login(loginFormDto.getLoginId(), loginFormDto.getPassword());
         HttpSession session = request.getSession();
-        session.setAttribute("SESSION_KEY", memberSession);
+        session.setAttribute(SESSION_KEY, memberSession);
         return new LoginResponseDto(memberSession.getId(), memberSession.getLoginId(), memberSession.getUsername());
     }
 
@@ -63,11 +64,11 @@ public class MemberController {
     public MemberSessionDto sessionCheck(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
-        if (Objects.isNull(session) || Objects.isNull(session.getAttribute("SESSION_KEY"))) {
+        if (Objects.isNull(session) || Objects.isNull(session.getAttribute(SESSION_KEY))) {
             throw ErrorException.type(AUTHENTICATION_USER);
         }
 
-        return (MemberSessionDto) session.getAttribute("SESSION_KEY");
+        return (MemberSessionDto) session.getAttribute(SESSION_KEY);
     }
 
 }
