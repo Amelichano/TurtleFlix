@@ -58,7 +58,7 @@ function Login() {
         />
         <Typography color="gray" className="text-center">
           계정이 없으신가요?{' '}
-          <a href="/register" className="font-medium text-gray-900">
+          <a href="#" className="font-medium text-gray-900">
             회원가입
           </a>
         </Typography>
