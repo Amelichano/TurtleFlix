@@ -23,11 +23,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/dummy")
 public class AddMovieController {
-    private final GenreRepository genreRepository;
-    private final MovieService movieService;
 
+    private final MovieService movieService;
     private final MovieRepository movieRepository;
-    private final Map<Long, Long> movieIdToTmbdId;
+    private final Map<Long, Long> movieIdToTid;
 
     @GetMapping("/addMovies")
     public ResponseEntity<?> addMovies() throws IOException {
@@ -55,7 +54,7 @@ public class AddMovieController {
 
 
             movieRepository.save(Movie.builder()
-                    .id(movieId).tmbdId(movieIdToTmbdId.get(movieId))
+                    .id(movieId).tmdbId(movieIdToTid.get(movieId))
                     .title(title.toString())
                     .genres(Arrays.stream(genre)
                             .map(movieService::findAndCreateGenre)
