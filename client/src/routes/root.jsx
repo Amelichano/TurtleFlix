@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Input, Button } from '@material-tailwind/react';
+import { Card, Input, Button, Select, Option } from '@material-tailwind/react';
 function Root() {
 
   const [target, setTarget] = useState('');
+  const [value, setValue] = useState('');
 
   const search = () => {
     
@@ -26,6 +27,34 @@ function Root() {
             value={target}
             onChange={(e) => setTarget(e.target.value)}
           />
+          <div className="mt-6 w-full">
+            <Select
+              label="장르 선택"
+              value={value}
+              onChange={(val) => setValue(val)}
+            >
+              <Option value="20">None</Option>
+              <Option value="1">Adventure</Option>
+              <Option value="2">Animation</Option>
+              <Option value="3">Children</Option>
+              <Option value="4">Comedy</Option>
+              <Option value="5">Fantasy</Option>
+              <Option value="6">Romance</Option>
+              <Option value="7">Drama</Option>
+              <Option value="8">Action</Option>
+              <Option value="9">Crime</Option>
+              <Option value="10">Thriller</Option>
+              <Option value="11">Horror</Option>
+              <Option value="12">Mystery</Option>
+              <Option value="13">Sci-Fi</Option>
+              <Option value="14">War</Option>
+              <Option value="15">Musical</Option>
+              <Option value="16">Documentary</Option>
+              <Option value="17">IMAX</Option>
+              <Option value="18">Western</Option>
+              <Option value="19">Film-Noir</Option>
+            </Select>
+          </div>
           <Button className="mt-6" type="submit" fullWidth onClick={search}>
             검색
           </Button>
