@@ -15,8 +15,14 @@ function RegisterForm() {
   const onSubmit = (data) => {
     const { id: loginId, password, username } = data
 
-    const result = postSignUp(loginId, password, username)
-    console.log(result)
+    postSignUp(loginId, password, username)
+      .then(() => {
+        alert('회원가입이 완료되었습니다.')
+        window.location.href = '/login'
+      })
+      .catch((error) => {
+        alert(error.response.data.message)
+      })
   }
 
   return (
