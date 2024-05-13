@@ -1,7 +1,11 @@
 import axios from 'axios'
 
 const tmdbInstance = axios.create({
-  baseURL: 'https://api.themoviedb.org/3',
+  baseURL: import.meta.env.VITE_TMDB_BASE_URL,
+})
+
+const serverInstance = axios.create({
+  baseURL: import.meta.env.VITE_SERVER_BASE_URL,
 })
 
 tmdbInstance.interceptors.request.use((config) => {
@@ -9,4 +13,4 @@ tmdbInstance.interceptors.request.use((config) => {
   return config
 })
 
-export { tmdbInstance }
+export { tmdbInstance, serverInstance }
