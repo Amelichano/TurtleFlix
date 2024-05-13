@@ -2,6 +2,7 @@ import { Button, Input, Typography } from '@material-tailwind/react'
 import { useForm } from 'react-hook-form'
 
 import InputWithHelperText from './input-with-helper-text'
+import { postSignUp } from '../api/user'
 
 function RegisterForm() {
   const {
@@ -12,7 +13,16 @@ function RegisterForm() {
   } = useForm()
 
   const onSubmit = (data) => {
-    console.log(data)
+    const { id: loginId, password, username } = data
+
+    postSignUp(loginId, password, username)
+      .then(() => {
+        alert('회원가입이 완료되었습니다.')
+        window.location.href = '/login'
+      })
+      .catch((error) => {
+        alert(error.response.data.message)
+      })
   }
 
   return (
