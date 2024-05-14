@@ -1,5 +1,6 @@
 package com.server;
 
+import com.server.controller.AddMovieController;
 import com.server.controller.MemberController;
 import com.server.exception.ErrorCode;
 import com.server.exception.ErrorException;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice(assignableTypes = {
-        MemberController.class
+        MemberController.class, AddMovieController.class
 })
 public class ApiExceptionHandler {
     @ExceptionHandler
