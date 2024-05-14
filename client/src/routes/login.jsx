@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Card, Typography, Alert } from '@material-tailwind/react'
 
 import LoginForm from '../components/login-form'
+import { postLogIn } from '../api/user'
 
 function Login() {
   const [id, setId] = useState('')
@@ -24,6 +25,14 @@ function Login() {
 
   const login = () => {
     if (hasCredential()) {
+      postLogIn(id, password)
+        .then((res) => {
+          sessionStorage.setItem('session', JSON.stringify(res))
+          window.location.href = '/'
+        })
+        .catch((err) => {
+          setMessage('로그인 실패!')
+        })
     }
   }
 
@@ -46,9 +55,9 @@ function Login() {
 
       <Card className="w-full max-w-md p-6">
         <Typography className="font-bold" variant="h4" color="blue-gray">
-          TurtleFlix
+          로그인
         </Typography>
-        <Typography className="mt-1 font-normal">로그인</Typography>
+        <Typography className="mt-1 font-normal">반가워요!</Typography>
         <LoginForm
           id={id}
           setId={setId}
@@ -56,9 +65,9 @@ function Login() {
           setPassword={setPassword}
           onLoginClick={login}
         />
-        <Typography color="gray" className="text-center">
+        <Typography color="gray" className="mt-4 text-center">
           계정이 없으신가요?{' '}
-          <a href="#" className="font-medium text-gray-900">
+          <a href="/register" className="font-medium text-gray-900">
             회원가입
           </a>
         </Typography>
@@ -66,4 +75,5 @@ function Login() {
     </div>
   )
 }
+
 export default Login

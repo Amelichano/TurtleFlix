@@ -75,7 +75,7 @@ public class MemberService {
             member.setPassword(password);
             member.setUsername(username);
         }else{
-            throw new IllegalStateException("회원이 존재하지 않습니다");
+            throw ErrorException.type(USER_NOT_FOUND);
         }
     }
     //회원 삭제

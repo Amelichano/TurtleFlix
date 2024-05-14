@@ -11,6 +11,7 @@ import org.springframework.util.PatternMatchUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import java.util.Objects;
 
+import static com.server.SessionFactory.SESSION_KEY;
 import static com.server.exception.ErrorCode.AUTHENTICATION_USER;
 
 
@@ -24,8 +25,8 @@ public class RequestInterceptor implements HandlerInterceptor{
         log.info("요청 URI : {}", requestURI);
 
         HttpSession session = request.getSession(false);
-        if (Objects.isNull(session) || Objects.isNull(session.getAttribute("SESSION_KEY"))) {
-            if (Objects.equals(request.getMethod(), "GET") && PatternMatchUtils.simpleMatch("/api/**", request.getRequestURI())) {
+        if (Objects.isNull(session) || Objects.isNull(session.getAttribute(SESSION_KEY))) {
+            if (Objects.equals(request.getMethod(), "GET") && PatternMatchUtils.simpleMatch("/**", request.getRequestURI())) {
                 return true;
             }
 
@@ -36,6 +37,7 @@ public class RequestInterceptor implements HandlerInterceptor{
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(errorResponseToJSON);
+
             return false;
         }
 

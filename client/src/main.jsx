@@ -8,8 +8,17 @@ import { ThemeProvider } from '@material-tailwind/react'
 import Root from './routes/root'
 import Register from './routes/register'
 import Login from './routes/login'
+import Search from './routes/search'
 
-const router = createBrowserRouter([
+const identifiedRouter = createBrowserRouter([
+  { path: '/', element: <Root /> },
+  {
+    path: '/search',
+    element: <Search />,
+  },
+])
+
+const unidentifiedRouter = createBrowserRouter([
   { path: '/', element: <Root /> },
   {
     path: '/register',
@@ -20,6 +29,10 @@ const router = createBrowserRouter([
     element: <Login />,
   },
 ])
+
+const router = sessionStorage.getItem('session')
+  ? identifiedRouter
+  : unidentifiedRouter
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
