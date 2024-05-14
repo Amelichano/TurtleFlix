@@ -57,7 +57,7 @@ function Login() {
         <Typography className="font-bold" variant="h4" color="blue-gray">
           로그인
         </Typography>
-        <Typography className="mt-1 font-normal">TURTLEFLIX</Typography>
+        <Typography className="mt-1 font-normal">반가워요!</Typography>
         <LoginForm
           id={id}
           setId={setId}

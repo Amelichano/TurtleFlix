@@ -10,7 +10,7 @@ function Register() {
           회원가입
         </Typography>
         <Typography color="gray" className="mt-1">
-          만나서 반가워요!
+          처음 오셨군요!
         </Typography>
         <RegisterForm />
       </Card>
