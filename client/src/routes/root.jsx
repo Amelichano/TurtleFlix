@@ -46,7 +46,7 @@ function Root() {
       setErrorMessage('제목이나 장르를 입력해주세요.')
     }
     setErrorMessage('')
-    const genreQuery = genre && `genreName=${genre}`
+    const genreQuery = genre && `genre=${genre}`
     const titleQuery = title && `title=${title}`
     const query = `?${[genreQuery, titleQuery].filter(Boolean).join('&')}`
     navigate(`/search${query}`)
