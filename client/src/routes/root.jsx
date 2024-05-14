@@ -1,39 +1,66 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Input, Button, Select, Option } from '@material-tailwind/react';
+import { Card, Input, Button, Select, Option, Alert } from '@material-tailwind/react';
+import { getSearch } from '../api/search';
+
 function Root() {
 
-  const [target, setTarget] = useState('');
-  const [value, setValue] = useState('');
+  const [movieTitle, setMovieTitle] = useState('');
+  const [genreValue, setGenreValue] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const search = () => {
-    
+
+  const search = async () => {
+    if (!movieTitle && !genreValue) {
+      setErrorMessage("제목이나 장르를 입력해주세요.");
+    }
+    setErrorMessage('');
+    try {
+      const data = await getSearch(genreValue, movieTitle);
+    } catch (error) {
+      console.error('검색 에러:', error);
+      setErrorMessage("검색 중 문제가 발생했습니다.");
+    }
   }
 
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => {
+        setMessage('')
+      }, 2000)
+      return () => clearTimeout(timer)
+    }
+  }, [errorMessage])
+
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-100 p-4">
+    <div className="flex h-screen items-center justify-center bg-white p-4">
+      <div className={`fixed top-6 ${!errorMessage ? 'hidden' : ''}`}>
+        <Alert variant="ghost">
+          <span>{errorMessage}</span>
+        </Alert>
+      </div>
       <form
       className="mb-2 mt-8 w-80 max-w-screen-lg sm:w-96"
       onSubmit={(e) => e.preventDefault()}
       >
         <Card className="w-full max-w-md p-6">
           <Input
-            type="email"
+            type="text"
             placeholder="제목을 통해 검색하시겠습니까?"
             className="!border !border-gray-300 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
             labelProps={{
               className: "hidden",
             }}
             containerProps={{ className: "min-w-[100px]" }}
-            value={target}
-            onChange={(e) => setTarget(e.target.value)}
+            value={movieTitle}
+            onChange={(e) => setMovieTitle(e.target.value)}
           />
           <div className="mt-6 w-full">
             <Select
               label="장르 선택"
-              value={value}
-              onChange={(val) => setValue(val)}
+              value={genreValue}
+              onChange={(val) => setGenreValue(val)}
             >
-              <Option value="20">None</Option>
+              <Option value="">None</Option>
               <Option value="1">Adventure</Option>
               <Option value="2">Animation</Option>
               <Option value="3">Children</Option>
@@ -60,6 +87,7 @@ function Root() {
           </Button>
         </Card>
       </form>
+      
     </div>
       
   )
