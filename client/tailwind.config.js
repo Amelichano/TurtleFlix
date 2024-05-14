@@ -4,6 +4,9 @@ export default withMT({
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {},
+    fontFamily: {
+      pretendard: ['Pretendard Variable'],
+    },
   },
   plugins: [],
 })
