@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Input, Button, Select, Option, Alert } from '@material-tailwind/react';
-import { getSearch } from '../api/search';
+import { useNavigate } from 'react-router-dom';
 
 function Root() {
 
-  const [movieTitle, setMovieTitle] = useState('');
-  const [genreValue, setGenreValue] = useState('');
+  const [title, setTitle] = useState('');
+  const [genre, setGenre] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
 
-  const search = async () => {
-    if (!movieTitle && !genreValue) {
+  const searchMovie = async () => {
+    if (!title && !genre) {
       setErrorMessage("제목이나 장르를 입력해주세요.");
     }
     setErrorMessage('');
-    try {
-      const data = await getSearch(genreValue, movieTitle);
-    } catch (error) {
-      console.error('검색 에러:', error);
-      setErrorMessage("검색 중 문제가 발생했습니다.");
-    }
+    const genreQuery = genre && `genreName=${genre}`;
+    const titleQuery = title && `title=${title}`;
+    const query = `?${[genreQuery, titleQuery].filter(Boolean).join('&')}`;
+    navigate(`/search?${query}`);
   }
 
   useEffect(() => {
     if (errorMessage) {
-      const timer = setTimeout(() => {
-        setMessage('')
+      const timer = setErrorMessage(() => {
+        setErrorMessage('')
       }, 2000)
       return () => clearTimeout(timer)
     }
@@ -33,14 +32,16 @@ function Root() {
 
   return (
     <div className="flex h-screen items-center justify-center bg-white p-4">
+
       <div className={`fixed top-6 ${!errorMessage ? 'hidden' : ''}`}>
         <Alert variant="ghost">
           <span>{errorMessage}</span>
         </Alert>
       </div>
+
       <form
-      className="mb-2 mt-8 w-80 max-w-screen-lg sm:w-96"
-      onSubmit={(e) => e.preventDefault()}
+        className="mb-2 mt-8 w-80 max-w-screen-lg sm:w-96"
+        onSubmit={(e) => e.preventDefault()}
       >
         <Card className="w-full max-w-md p-6">
           <Input
@@ -51,14 +52,14 @@ function Root() {
               className: "hidden",
             }}
             containerProps={{ className: "min-w-[100px]" }}
-            value={movieTitle}
-            onChange={(e) => setMovieTitle(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
           <div className="mt-6 w-full">
             <Select
               label="장르 선택"
-              value={genreValue}
-              onChange={(val) => setGenreValue(val)}
+              value={genre}
+              onChange={(val) => setGenre(val)}
             >
               <Option value="">None</Option>
               <Option value="1">Adventure</Option>
@@ -82,7 +83,7 @@ function Root() {
               <Option value="19">Film-Noir</Option>
             </Select>
           </div>
-          <Button className="mt-6" type="submit" fullWidth onClick={search}>
+          <Button className="mt-6" type="submit" fullWidth onClick={searchMovie}>
             검색
           </Button>
         </Card>
