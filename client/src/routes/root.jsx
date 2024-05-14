@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import BaseLayout from '../layouts/base-layout'
 
 const GENRES = [
+  { key: "gen0", value: "", name: "None" },
   { key: 'gen1', value: '1', name: 'Adventure' },
   { key: 'gen2', value: '2', name: 'Animation' },
   { key: 'gen3', value: '3', name: 'Children' },
@@ -87,7 +88,7 @@ function Root() {
               placeholder="제목을 통해 검색하시겠습니까?"
               className="!border !border-gray-300 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
               labelProps={{
-                className: 'hidden',
+                className: 'hidden'
               }}
               containerProps={{ className: 'min-w-[100px]' }}
               value={title}
@@ -99,9 +100,8 @@ function Root() {
                 value={genre}
                 onChange={(val) => setGenre(val)}
               >
-                <Option value="">None</Option>
                 {GENRES.map((genre) => (
-                  <Option value={genre.value} key={genre.key}>
+                  <Option value={genre.name} key={genre.key}>
                     {genre.name}
                   </Option>
                 ))}
