@@ -5,7 +5,7 @@ function BaseLayout({ children }) {
   return (
     <div className="relative mx-auto flex min-h-dvh max-w-screen-xl flex-col p-4">
       <NavMenu />
-      <main className="mb-20 flex-1 py-6 lg:mb-28">{children}</main>
+      <main className="mb-16 flex-1 py-6">{children}</main>
       <Footer />
     </div>
   )
