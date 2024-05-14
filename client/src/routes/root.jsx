@@ -1,19 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import {
-  Typography,
-  Card,
-  Input,
-  Button,
-  Select,
-  Option,
-  Alert,
-} from '@material-tailwind/react'
+import React, { useState } from 'react'
+import { Card, Input, Button, Select, Option } from '@material-tailwind/react'
 import { useNavigate } from 'react-router-dom'
 
+import Logo from '../assets/logo.svg'
 import BaseLayout from '../layouts/base-layout'
 
 const GENRES = [
-  { key: "gen0", name: "None" },
   { key: 'gen1', name: 'Adventure' },
   { key: 'gen2', name: 'Animation' },
   { key: 'gen3', name: 'Children' },
@@ -38,65 +30,35 @@ const GENRES = [
 function Root() {
   const [title, setTitle] = useState('')
   const [genre, setGenre] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
   const navigate = useNavigate()
 
   const searchMovie = (e) => {
     e.preventDefault()
-    if (!title && !genre) {
-      setErrorMessage('제목이나 장르를 입력해주세요.')
-    }
-    setErrorMessage('')
     const genreQuery = genre && `genre=${genre}`
     const titleQuery = title && `title=${title}`
     const query = `?${[genreQuery, titleQuery].filter(Boolean).join('&')}`
     navigate(`/search${query}`)
   }
 
-  useEffect(() => {
-    if (errorMessage) {
-      const timer = setErrorMessage(() => {
-        setErrorMessage('')
-      }, 2000)
-      return () => clearTimeout(timer)
-    }
-  }, [errorMessage])
-
   return (
     <BaseLayout>
-      <div className="flex items-center justify-center bg-white p-4">
-        <div className={`fixed top-6 ${!errorMessage ? 'hidden' : ''}`}>
-          <Alert variant="ghost">
-            <span>{errorMessage}</span>
-          </Alert>
-        </div>
-
-        <form
-          className="mb-2 mt-8 w-80 max-w-screen-lg sm:w-96"
-          onSubmit={searchMovie}
-        >
-          <Card className="w-full max-w-md p-6">
-            <Typography
-              className="mb-6 font-bold"
-              variant="h4"
-              color="blue-gray"
-            >
-              TurtleFlix
-            </Typography>
-            <Input
-              type="text"
-              placeholder="제목을 통해 검색하시겠습니까?"
-              className="!border !border-gray-300 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
-              labelProps={{
-                className: 'hidden'
-              }}
-              containerProps={{ className: 'min-w-[100px]' }}
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <div className="mt-6 w-full">
+      <div className="flex flex-col items-center justify-center gap-8 bg-white p-4">
+        <img src={Logo} alt="logo" className="w-1/2 py-8" />
+        <Card className="w-full max-w-xl p-6">
+          <form
+            onSubmit={searchMovie}
+            className="flex w-full flex-col gap-6 lg:flex-row"
+          >
+            <div className="flex w-full flex-col gap-4">
+              <Input
+                type="text"
+                placeholder="Toy Story (1995)"
+                label="영화 제목"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
               <Select
-                label="장르 선택"
+                label="장르"
                 value={genre}
                 onChange={(val) => setGenre(val)}
               >
@@ -107,11 +69,11 @@ function Root() {
                 ))}
               </Select>
             </div>
-            <Button className="mt-6" type="submit" fullWidth>
+            <Button type="submit" className="w-full lg:w-1/4 lg:text-lg">
               검색
             </Button>
-          </Card>
-        </form>
+          </form>
+        </Card>
       </div>
     </BaseLayout>
   )
