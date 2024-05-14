@@ -19,7 +19,7 @@ function MovieCard({ movie }) {
   }, [])
 
   return (
-    <Card className="mt-6 w-80">
+    <Card className="mt-6 w-full">
       <CardHeader color="blue-gray" className="relative h-56">
         <img
           src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
