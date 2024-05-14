@@ -12,6 +12,7 @@ function Search() {
   const genre = searchParams.get('genre')
   const title = searchParams.get('title')
 
+  const [movieCount, setMovieCount] = useState(0)
   const [totalPages, setTotalPages] = useState(1)
   const [page, setPage] = useState(1)
   const [movies, setMovies] = useState([])
@@ -19,6 +20,7 @@ function Search() {
   useEffect(() => {
     getSearch(genre, title, page).then((result) => {
       setMovies(result.data)
+      setMovieCount(result.pageInfo.totalElements)
       setTotalPages(result.pageInfo.totalPages)
     })
   }, [genre, title, page])
@@ -36,6 +38,13 @@ function Search() {
   return (
     <BaseLayout>
       <div className="flex w-full flex-col items-center gap-16">
+        <div className="mt-8 flex flex-col items-center gap-2">
+          <span className="text-xl font-semibold">제목: {title ?? '전체'}</span>
+          <span className="text-xl font-semibold">장르: {genre ?? '전체'}</span>
+          <span className="font-medium">
+            총 {movieCount}개의 영화가 검색되었습니다.
+          </span>
+        </div>
         <div className="grid w-full grid-cols-1 justify-items-center gap-8 md:grid-cols-2 lg:grid-cols-3">
           {movies.map((movie) => (
             <MovieCard key={`movie-${movie.id}`} movie={movie} />
