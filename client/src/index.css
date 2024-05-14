@@ -6,6 +6,6 @@
 
 @layer base {
   body {
-    @apply font-pretendard;
+    @apply font-sans;
   }
 }

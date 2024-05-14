@@ -5,7 +5,7 @@ export default withMT({
   theme: {
     extend: {},
     fontFamily: {
-      pretendard: ['Pretendard Variable'],
+      sans: ['Pretendard Variable'],
     },
   },
   plugins: [],
