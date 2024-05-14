@@ -55,9 +55,9 @@ function Login() {
 
       <Card className="w-full max-w-md p-6">
         <Typography className="font-bold" variant="h4" color="blue-gray">
-          TurtleFlix
+          로그인
         </Typography>
-        <Typography className="mt-1 font-normal">로그인</Typography>
+        <Typography className="mt-1 font-normal">반가워요!</Typography>
         <LoginForm
           id={id}
           setId={setId}
@@ -65,7 +65,7 @@ function Login() {
           setPassword={setPassword}
           onLoginClick={login}
         />
-        <Typography color="gray" className="text-center">
+        <Typography color="gray" className="mt-4 text-center">
           계정이 없으신가요?{' '}
           <a href="/register" className="font-medium text-gray-900">
             회원가입

@@ -13,13 +13,13 @@ function MovieCard({ movie }) {
   const [details, setDetails] = useState('')
 
   useEffect(() => {
-    getDetails(movie.tmbdId).then((data) => {
+    getDetails(movie.tmdbId).then((data) => {
       setDetails(data)
     })
   }, [])
 
   return (
-    <Card className="mt-6 w-80">
+    <Card className="mt-6 w-full">
       <CardHeader color="blue-gray" className="relative h-56">
         <img
           src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
@@ -35,7 +35,7 @@ function MovieCard({ movie }) {
         </p>
       </CardBody>
       <CardFooter className="flex gap-4 pt-0">
-        <Link to={`https://www.themoviedb.org/movie/${movie.tmbdId}`}>
+        <Link to={`https://www.themoviedb.org/movie/${movie.tmdbId}`}>
           <Button color="blue">TMDB</Button>
         </Link>
         <Link to={`https://www.imdb.com/title/${details.imdb_id}`}>
