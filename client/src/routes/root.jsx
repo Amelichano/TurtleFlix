@@ -49,7 +49,7 @@ function Root() {
     const genreQuery = genre && `genreName=${genre}`
     const titleQuery = title && `title=${title}`
     const query = `?${[genreQuery, titleQuery].filter(Boolean).join('&')}`
-    navigate(`/search?${query}`)
+    navigate(`/search${query}`)
   }
 
   useEffect(() => {
