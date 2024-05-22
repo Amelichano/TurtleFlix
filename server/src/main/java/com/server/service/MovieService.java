@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,23 +27,23 @@ public class MovieService {
         );
     }
 
-    public Page<Movie> findAllMovies(int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<Movie> findAllMovies(int page, int size, Sort sort) {
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
         return movieRepository.findAll(pageRequest);
     }
 
-    public Page<Movie> findGenreAndTitleMovies(String genre, String title, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<Movie> findGenreAndTitleMovies(String genre, String title, int page, int size, Sort sort) {
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
         return movieRepository.findByGenresNameAndTitleContainingIgnoreCase(genre, title, pageRequest);
     }
 
-    public Page<Movie> findGenreMovies(String genre, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<Movie> findGenreMovies(String genre, int page, int size, Sort sort) {
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
         return movieRepository.findByGenresNameContainingIgnoreCase(genre, pageRequest);
     }
 
-    public Page<Movie> findTitleMovies(String title, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<Movie> findTitleMovies(String title, int page, int size, Sort sort) {
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
         return movieRepository.findByTitleContainingIgnoreCase(title, pageRequest);
     }
 
