@@ -27,6 +27,7 @@ public class RequestInterceptor implements HandlerInterceptor{
         HttpSession session = request.getSession(false);
         if (Objects.isNull(session) || Objects.isNull(session.getAttribute(SESSION_KEY))) {
 
+
             log.info("미인증 사용자 요청");
             String errorResponseToJSON = objectMapper.writeValueAsString(ErrorResponse.of(AUTHENTICATION_USER));
 
