@@ -1,14 +1,14 @@
 package com.server.controller;
 
+import com.server.dto.RatingDto;
 import com.server.entity.Movie;
 import com.server.repository.GenreRepository;
 import com.server.repository.MovieRepository;
 import com.server.service.MovieService;
+import com.server.service.RatingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,6 +27,8 @@ public class AddMovieController {
     private final MovieService movieService;
     private final MovieRepository movieRepository;
     private final Map<Long, Long> movieIdToTid;
+    private final List<RatingDto> ratingData;
+    private final RatingService ratingService;
 
     @GetMapping("/addMovies")
     public ResponseEntity<?> addMovies() throws IOException {
@@ -67,5 +69,17 @@ public class AddMovieController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/addRatingsFromCsv")
+    public ResponseEntity<?> addRatingsFromCsv() {
+        for (RatingDto rating : ratingData) {
+            ratingService.saveMovieRating(rating.getMovieId(), rating.getRating());
+        }
+        return ResponseEntity.ok().build();
+    }
 
+    @GetMapping("/calculateAverageRatings")
+    public ResponseEntity<?> calculateAverageRatings() {
+        ratingService.calculateAndSaveAverageRatings();
+        return ResponseEntity.ok().build();
+    }
 }
