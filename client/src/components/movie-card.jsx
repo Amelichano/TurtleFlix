@@ -8,17 +8,22 @@ import {
 } from '@material-tailwind/react'
 import { getDetails } from '../api/movies'
 import { useEffect, useState } from 'react'
+import MovieCardSkeleton from './movie-card-skeleton'
 
 function MovieCard({ movie }) {
+  const [isLoading, setIsLoading] = useState(true)
   const [details, setDetails] = useState('')
 
   useEffect(() => {
     getDetails(movie.tmdbId).then((data) => {
       setDetails(data)
+      setIsLoading(false)
     })
   }, [])
 
-  return (
+  return isLoading ? (
+    <MovieCardSkeleton />
+  ) : (
     <Card className="mt-6 w-full">
       <CardHeader color="blue-gray" className="relative h-56">
         <img
@@ -28,7 +33,7 @@ function MovieCard({ movie }) {
       </CardHeader>
       <CardBody>
         <h5 className="mb-2 line-clamp-1 font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-          {movie.title}
+          {details.title}
         </h5>
         <p className="line-clamp-2 font-sans text-base font-light leading-relaxed text-inherit antialiased">
           {details.overview ?? ''}
