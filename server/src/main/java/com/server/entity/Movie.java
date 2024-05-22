@@ -20,6 +20,6 @@ public class Movie {
     private Long tmdbId;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Genre> genres;
-
+    private double averageRating;
 
 }
