@@ -11,7 +11,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new RequestInterceptor())
                 .order(1)
-                .addPathPatterns("/update/**", "/addMovies", "/api/like", "/api/isLiked", "/api/likedMovies", "/api/recommendations")
+                .addPathPatterns("/update/**", "/addMovies", "/api/like", "/api/isLiked", "/api/likedMovies", "/api/recommendations", "/api/deleteLike/**")
                 .excludePathPatterns(
                         "/signUp", "/login" // Login
                         , "/session-check" // MemberController
