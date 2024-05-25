@@ -10,4 +10,6 @@ import java.util.List;
 public interface LikeRepository extends JpaRepository<MovieLike, Long> {
     boolean existsByMemberAndMovie(Member member, Movie movie);
     List<MovieLike> findByMember(Member member);
+
+    void deleteByMemberAndMovie(Member member, Movie movie);
 }

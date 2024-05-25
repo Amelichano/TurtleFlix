@@ -9,8 +9,10 @@ import com.server.repository.MemberRepository;
 import com.server.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,5 +55,15 @@ public class LikeService {
         return movieLikes.stream()
                 .map(MovieLike::getMovie)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void deleteLike(Long memberId, Long movieId) {
+        Optional<Member> member = memberRepository.findById(memberId);
+        Member findMember = member.get();
+
+        Optional<Movie> movie = movieRepository.findById(movieId);
+        Movie findMovie = movie.get();
+        likeRepository.deleteByMemberAndMovie(findMember, findMovie);
     }
 }

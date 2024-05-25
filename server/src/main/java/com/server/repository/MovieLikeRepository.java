@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface MovieLikeRepository extends JpaRepository<MovieLike, Long> {
     List<MovieLike> findAllByMemberId(Long id);
+
 }

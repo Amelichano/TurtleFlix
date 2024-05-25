@@ -46,4 +46,12 @@ public class LikeController {
         List<Movie> likedMovies = likeService.getLikedMoviesByMember(memberSession);
         return ResponseEntity.ok(likedMovies);
     }
+
+    @DeleteMapping("/deleteLike/{movieId}")
+    public ResponseEntity<?> deleteLike(@PathVariable Long movieId, HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        MemberSessionDto dto = (MemberSessionDto) session.getAttribute(SESSION_KEY);
+        likeService.deleteLike(dto.getId(), movieId);
+        return ResponseEntity.ok().build();
+    }
 }
