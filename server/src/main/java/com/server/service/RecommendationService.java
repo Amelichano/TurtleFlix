@@ -19,7 +19,7 @@ public class RecommendationService {
     private final MovieRepository movieRepository;
 
     public Page<Movie> recommendMovies(Member member, Sort sort) {
-        // Step 1: 사용자가 좋아요를 누른 영화들 가져오기
+        //사용자가 좋아요를 누른 영화들 가져오기
         List<MovieLike> allLikes = movieLikeRepository.findAllByMemberId(member.getId());
         if (allLikes.isEmpty()) {
             System.out.println("No likes found");
@@ -28,10 +28,10 @@ public class RecommendationService {
 
 //        Set<Movie> likedMovies = allLikes.stream().map(MovieLike::getMovie).collect(Collectors.toSet());
 
-        // Step 2: 모든 영화 가져오기
+        //모든 영화 가져오기
         List<Movie> allMovies = movieRepository.findAll();
 
-        // Step 3: likedMovies를 allMovies에서 참조된 객체로 대체
+        //likedMovies를 allMovies에서 참조된 객체로 대체
         Set<Movie> likedMovies = new HashSet<>();
         for (MovieLike like : allLikes) {
             Movie likedMovie = like.getMovie();
@@ -43,10 +43,10 @@ public class RecommendationService {
             }
         }
 
-        // Step 3: 영화-영화 유사도 계산 (좋아요, 장르, 제목 포함)
+        //영화-영화 유사도 계산 (좋아요, 장르, 제목 포함)
         Map<Movie, Map<Movie, Double>> similarityMatrix = calculateCombinedSimilarity(likedMovies, allMovies);
 
-        // Step 4: 각 영화에 대한 유사도 점수 계산
+        //각 영화에 대한 유사도 점수 계산
         Map<Movie, Double> recommendationScores = new HashMap<>();
         for (Movie likedMovie : likedMovies) {
             Map<Movie, Double> similarMovies = similarityMatrix.getOrDefault(likedMovie, Collections.emptyMap());
@@ -64,13 +64,12 @@ public class RecommendationService {
             return Page.empty();
         }
 
-        // Step 5: 추천 영화 반환 (페이징 처리)
+        //추천 영화 반환 (페이징 처리)
         List<Movie> sortedMovies = recommendationScores.entrySet().stream()
                 .sorted(Map.Entry.<Movie, Double>comparingByValue().reversed())
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
 
-        // Create a sublist based on the page and size parameters
         Pageable pageable = PageRequest.of(0, 12, sort);
         int start = Math.min((int) pageable.getOffset(), sortedMovies.size());
         int end = Math.min((start + pageable.getPageSize()), sortedMovies.size());
