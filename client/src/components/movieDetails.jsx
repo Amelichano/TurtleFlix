@@ -24,14 +24,14 @@ import {
     return isLoading ? (
       <MovieCardSkeleton />
     ) : (
-      <Card className="mt-6 w-full">
-        <CardHeader color="blue-gray" className="relative h-56">
+      <Card className="mt-6 w-full flex flex-row">
+        <CardHeader color="blue-gray" className="relative w-1/3">
           <img
             src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
             alt={details.title}
           />
         </CardHeader>
-        <CardBody>
+        <CardBody className="w-2/3">
           <h5 className="mb-2 font-sans text-xl font-semibold text-blue-gray-900">
             {details.title}
           </h5>
