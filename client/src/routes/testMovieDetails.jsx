@@ -1,12 +1,15 @@
 import MovieDetails from '../components/movieDetails';
 
-function TestMovieDetails() {
+function TestMovieDetails({ tmdbId }) {
   const testTmdbId = '617127'; // 임의로 설정한 tmdbId
+  tmdbId = testTmdbId;
 
   return (
-    <div className="test-movie-details">
-      <MovieDetails tmdbId={testTmdbId} />
-    </div>
+    <BaseLayout>
+      <div className="test-movie-details">
+        <MovieDetails tmdbId={tmdbId} />
+      </div>
+    </BaseLayout>
   );
 }
 

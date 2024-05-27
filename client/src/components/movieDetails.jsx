@@ -40,6 +40,9 @@ import {
             <strong>장르:</strong> {details.genres?.map(genre => genre.name).join(', ')}
           </p>
           <p className="font-sans text-base font-light">
+          <strong>러닝타임:</strong> {details.runtime ? `${details.runtime} 분` : '정보 없음'}
+          </p>
+          <p className="font-sans text-base font-light">
             <strong>개봉일:</strong> {details.release_date}
           </p>
           <p className="font-sans text-base font-light">
@@ -55,6 +58,9 @@ import {
         <CardFooter className="flex gap-4 pt-0">
           <a href={`https://www.themoviedb.org/movie/${tmdbId}`} target="_blank" rel="noopener noreferrer">
             <Button color="blue">더 찾아보기</Button>
+          </a>
+          <a href={details.homepage} target="_blank" rel="noopener noreferrer">
+            <Button color="green">공식 홈페이지</Button>
           </a>
         </CardFooter>
       </Card>
