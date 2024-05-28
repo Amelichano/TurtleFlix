@@ -6,8 +6,9 @@ import {
   CardHeader, 
   CardBody 
 } from '@material-tailwind/react';
-import { getDetails, getRecommendations } from './api/movies'; 
+import { getDetails, getRecommendations } from '../api/movies'; 
 import MovieCardSkeleton from './movie-card-skeleton';
+import MovieDetailsSkeleton from './movie-details-skeleton';
 import { useParams } from 'react-router-dom';
 
 function MovieDetails() {
@@ -47,7 +48,7 @@ function MovieDetails() {
   }, [tmdbId]);
 
   return isLoading ? (
-    <MovieCardSkeleton />
+    <MovieDetailsSkeleton />
   ) : (
     <div className="container mx-auto mt-6">
       <div className="p-4 border border-gray-300 rounded-lg shadow-lg">
