@@ -9,7 +9,7 @@ import Root from './routes/root'
 import Register from './routes/register'
 import Login from './routes/login'
 import Search from './routes/search'
-import MovieDetails from './components/movieDetails'
+import PrintMovieDetails from './routes/print-movie-details'
 
 const identifiedRouter = createBrowserRouter([
   { path: '/', element: <Root /> },
@@ -19,7 +19,7 @@ const identifiedRouter = createBrowserRouter([
   },
   {
     path: '/details/:tmdbId',
-    element: <MovieDetails />,
+    element: <PrintMovieDetails />,
   },
 ])
 
