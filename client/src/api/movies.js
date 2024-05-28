@@ -12,4 +12,9 @@ const getPopular = async () => {
   return response.data
 }
 
-export { getDetails, getPopular }
+const getRecommendations = async (id) => {
+  const response = await tmdbInstance.get(`/movie/${id}/recommendations`)
+  return response.data
+}
+
+export { getDetails, getPopular, getRecommendations }
