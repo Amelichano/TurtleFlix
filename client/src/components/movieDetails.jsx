@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom';
 function MovieDetails() {
   const { tmdbId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingRecommendations, setIsRecommendationLoading] = useState(true);
   const [details, setDetails] = useState({});
   const [recommendations, setRecommendations] = useState([]); 
 
@@ -35,6 +36,8 @@ function MovieDetails() {
           setRecommendations(recData.results.slice(0, 8)); 
         } catch (error) {
           console.error('Recommendations 오류 발생:', error);
+        } finally {
+          setIsRecommendationLoading(false);
         }
       };
 
@@ -98,6 +101,9 @@ function MovieDetails() {
       </div>
       <div className="mt-10 p-4 border border-gray-300 rounded-lg shadow-lg">
         <h2 className="mb-4 text-xl font-semibold text-blue-gray-900 mb-4">이런 영화는 어떠신가요?</h2>
+        {isLoadingRecommendations ? (
+          <MovieCardSkeleton /> 
+        ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {recommendations.map(rec => ( 
             <Card key={rec.id} className="flex flex-col items-center">
@@ -116,6 +122,7 @@ function MovieDetails() {
             </Card>
           ))}
         </div>
+        )}
       </div>
     </div>
   );
