@@ -4,7 +4,8 @@ import {
   Rating, 
   Card, 
   CardHeader, 
-  CardBody 
+  CardBody,
+  IconButton, 
 } from '@material-tailwind/react';
 import { getDetails, getRecommendations } from '../api/movies'; 
 import MovieCardSkeleton from './movie-card-skeleton';
@@ -96,6 +97,9 @@ function MovieDetails() {
               <a href={details.homepage} target="_blank" rel="noopener noreferrer">
                 <Button color="green">공식 홈페이지</Button>
               </a>
+              <IconButton>
+                <i className="fas fa-heart" />
+              </IconButton>
             </div>
           </div>
         </div>
