@@ -5,10 +5,10 @@ const getDetails = async (id) => {
   return response.data
 }
 
-const getRecomendations = async (id) => {
+const getRecommendations = async (id) => {
   const response = await tmdbInstance.get(`/movie/${id}/recommendations`)
   return response.data
 }
 
-export { getDetails, getRecomendations }
+export { getDetails, getRecommendations }
 

@@ -6,7 +6,7 @@ import {
   CardHeader, 
   CardBody 
 } from '@material-tailwind/react';
-import { getDetails, getRecomendations } from './api/movies'; 
+import { getDetails, getRecommendations } from './api/movies'; 
 import MovieCardSkeleton from './movie-card-skeleton';
 import { useParams } from 'react-router-dom';
 
@@ -31,7 +31,7 @@ function MovieDetails() {
 
       const fetchRecomendations = async () => { 
         try {
-          const recData = await getRecomendations(tmdbId); 
+          const recData = await getRecommendations(tmdbId); 
           setRecommendations(recData.results.slice(0, 8)); 
         } catch (error) {
           console.error('Recommendations 오류 발생:', error);
