@@ -6,7 +6,7 @@ import {
   CardHeader, 
   CardBody 
 } from '@material-tailwind/react';
-import { getDetails, getRecommendations } from './api/movies';
+import { getDetails, getRecomendations } from './api/movies'; 
 import MovieCardSkeleton from './movie-card-skeleton';
 import { useParams } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ function MovieDetails() {
   const { tmdbId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [details, setDetails] = useState({});
-  const [recommendations, setRecommendations] = useState([]);
+  const [recommendations, setRecommendations] = useState([]); 
 
   useEffect(() => {
     if (tmdbId) {
@@ -29,17 +29,17 @@ function MovieDetails() {
         }
       };
 
-      const fetchRecommendations = async () => {
+      const fetchRecomendations = async () => { 
         try {
-          const recData = await getRecommendations(tmdbId);
-          setRecommendations(recData.results.slice(0, 8));
+          const recData = await getRecomendations(tmdbId); 
+          setRecommendations(recData.results.slice(0, 8)); 
         } catch (error) {
           console.error('Recommendations 오류 발생:', error);
         }
       };
 
       fetchTmdbDetails();
-      fetchRecommendations();
+      fetchRecomendations(); 
     }
   }, [tmdbId]);
 
@@ -97,9 +97,9 @@ function MovieDetails() {
         </div>
       </div>
       <div className="mt-10 p-4 border border-gray-300 rounded-lg shadow-lg">
-        <h2 className="mb-4 text-xl font-semibold text-blue-gray-900 mb-4">비슷한 영화 추천</h2>
+        <h2 className="mb-4 text-xl font-semibold text-blue-gray-900 mb-4">이런 영화는 어떠신가요?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {recommendations.map(rec => (
+          {recommendations.map(rec => ( 
             <Card key={rec.id} className="flex flex-col items-center">
               <CardHeader className="relative w-full">
                 <img
