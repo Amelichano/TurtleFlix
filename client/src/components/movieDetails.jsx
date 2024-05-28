@@ -22,9 +22,9 @@ function MovieDetails() {
         try {
           const tmdbData = await getDetails(tmdbId);
           setDetails(tmdbData);
-          setIsLoading(false);
         } catch (error) {
           console.error('TMDB details 오류 발생:', error);
+        } finally {
           setIsLoading(false);
         }
       };
