@@ -1,14 +1,15 @@
 import MovieDetails from '../components/movieDetails';
+
 import BaseLayout from '../layouts/base-layout'
 
-function TestMovieDetails({ tmdbId }) {
-  const testTmdbId = '617127'; // 임의로 설정한 tmdbId
-  tmdbId = testTmdbId;
+function TestMovieDetails({ id }) {
+  const testdbId = '1'; // 임의로 설정한 tmdbId
+  id = testdbId;
 
   return (
     <BaseLayout>
       <div className="test-movie-details">
-        <MovieDetails tmdbId={tmdbId} />
+        <MovieDetails id={id} />
       </div>
     </BaseLayout>
   );
