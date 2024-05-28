@@ -1,5 +1,6 @@
 package com.server.service;
 
+import com.server.dto.MovieDetailResponseDto;
 import com.server.entity.Genre;
 import com.server.entity.Movie;
 import com.server.repository.GenreRepository;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -47,4 +49,13 @@ public class MovieService {
         return movieRepository.findByTitleContainingIgnoreCase(title, pageRequest);
     }
 
+    public MovieDetailResponseDto getMovieDetails(Long movieId) {
+        Optional<Movie> movie = movieRepository.findById(movieId);
+        Movie findMovie = null;
+        if(movie.isPresent()){
+            findMovie = movie.get();
+            return new MovieDetailResponseDto(findMovie.getTitle(), findMovie.getTmdbId(), findMovie.getGenres(), findMovie.getAverageRating());
+        }
+        return null;
+    }
 }

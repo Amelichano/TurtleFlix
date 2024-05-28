@@ -1,6 +1,7 @@
 package com.server.controller;
 
 import com.server.dto.MovieAllDto;
+import com.server.dto.MovieDetailResponseDto;
 import com.server.dto.PageInfo;
 import com.server.entity.Movie;
 import com.server.repository.MovieRepository;
@@ -83,6 +84,12 @@ public class MovieController {
         }
 
         return result;
+    }
+
+    @GetMapping("/movieDetails")
+    public ResponseEntity<MovieDetailResponseDto> getMovieDetails(@RequestParam Long movieId){
+        MovieDetailResponseDto movieDetails = movieService.getMovieDetails(movieId);
+        return new ResponseEntity<>(movieDetails, HttpStatus.OK);
     }
 
     public static ResponseEntity paging(int page, Page<Movie> moviePage){
