@@ -5,4 +5,11 @@ const getDetails = async (id) => {
   return response.data
 }
 
-export { getDetails }
+const getPopular = async () => {
+  const response = await tmdbInstance.get(
+    '/movie/popular?language=ko-KR&page=1&region=KOR',
+  )
+  return response.data
+}
+
+export { getDetails, getPopular }
