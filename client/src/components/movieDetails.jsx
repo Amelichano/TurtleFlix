@@ -97,7 +97,7 @@ function MovieDetails() {
         </div>
       </div>
       <div className="mt-10 p-4 border border-gray-300 rounded-lg shadow-lg">
-        <h2 className="text-xl font-semibold text-blue-gray-900 mb-4">비슷한 영화 추천</h2>
+        <h2 className="mb-4 text-xl font-semibold text-blue-gray-900 mb-4">비슷한 영화 추천</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {recommendations.map(rec => (
             <Card key={rec.id} className="flex flex-col items-center">
