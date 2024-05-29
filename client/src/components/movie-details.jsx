@@ -15,7 +15,7 @@ import {
   HeartIcon,
 } from '@radix-ui/react-icons'
 
-import { deleteLike, getDetails, getIsLiked, postLike } from '../api/movies'
+import { postDeleteLike, getDetails, getIsLiked, postLike } from '../api/movies'
 import MovieDetailsSkeleton from './movie-details-skeleton'
 
 function MovieDetails() {
@@ -39,7 +39,7 @@ function MovieDetails() {
 
       const fetchIsLiked = async () => {
         const response = await getIsLiked(tmdbId)
-        setIsLiked(response.isLiked)
+        setIsLiked(response)
       }
 
       fetchTmdbDetails()
@@ -58,7 +58,7 @@ function MovieDetails() {
 
   const handleUnlike = async () => {
     try {
-      await deleteLike(tmdbId)
+      await postDeleteLike(tmdbId)
       setIsLiked(false)
     } catch (error) {
       console.error('좋아요 취소 오류 발생:', error)
