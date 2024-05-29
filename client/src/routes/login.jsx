@@ -27,7 +27,7 @@ function Login() {
     if (hasCredential()) {
       postLogIn(id, password)
         .then((res) => {
-          sessionStorage.setItem('session', JSON.stringify(res))
+          sessionStorage.setItem('session', res)
           window.location.href = '/'
         })
         .catch((err) => {

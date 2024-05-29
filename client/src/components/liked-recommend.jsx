@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Typography } from '@material-tailwind/react'
 
 import { getLikedRecommendations } from '../api/movies'
+import MoviesCarousel from './movies-carousel'
 
 function LikecRecommend() {
   const [recommendations, setRecommendations] = useState([])
@@ -10,7 +11,6 @@ function LikecRecommend() {
     const fetchRecommendations = async () => {
       const response = await getLikedRecommendations()
       setRecommendations(response.data)
-      console.log(response)
     }
 
     fetchRecommendations()
@@ -21,7 +21,7 @@ function LikecRecommend() {
       좋아요를 눌러서 영화를 추천받아보세요!
     </Typography>
   ) : (
-    <></>
+    <MoviesCarousel movies={recommendations} />
   )
 }
 

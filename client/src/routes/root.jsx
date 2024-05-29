@@ -33,7 +33,7 @@ function Root() {
 
   return (
     <BaseLayout>
-      <div className="flex flex-col items-center gap-8 bg-white p-4">
+      <div className="flex w-full flex-col items-center gap-8 bg-white p-4">
         <h2 className="w-full text-2xl font-bold md:text-4xl">인기 영화</h2>
         <PopularCarousel />
         <Card className="w-full p-6">
