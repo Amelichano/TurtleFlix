@@ -1,50 +1,42 @@
 import React, { useState } from 'react'
-import { Card, Input, Button, Select, Option } from '@material-tailwind/react'
+import {
+  Card,
+  Input,
+  Button,
+  Select,
+  Option,
+  Typography,
+  Radio,
+} from '@material-tailwind/react'
 import { useNavigate } from 'react-router-dom'
 
-import Logo from '../assets/logo.svg'
 import BaseLayout from '../layouts/base-layout'
-
-const GENRES = [
-  { key: 'gen1', name: 'Adventure' },
-  { key: 'gen2', name: 'Animation' },
-  { key: 'gen3', name: 'Children' },
-  { key: 'gen4', name: 'Comedy' },
-  { key: 'gen5', name: 'Fantasy' },
-  { key: 'gen6', name: 'Romance' },
-  { key: 'gen7', name: 'Drama' },
-  { key: 'gen8', name: 'Action' },
-  { key: 'gen9', name: 'Crime' },
-  { key: 'gen10', name: 'Thriller' },
-  { key: 'gen11', name: 'Horror' },
-  { key: 'gen12', name: 'Mystery' },
-  { key: 'gen13', name: 'Sci-Fi' },
-  { key: 'gen14', name: 'War' },
-  { key: 'gen15', name: 'Musical' },
-  { key: 'gen16', name: 'Documentary' },
-  { key: 'gen17', name: 'IMAX' },
-  { key: 'gen18', name: 'Western' },
-  { key: 'gen19', name: 'Film-Noir' },
-]
+import PopularCarousel from '../components/popular-carousel'
+import LikedMovies from '../components/liked-movies'
+import LikedRecommend from '../components/liked-recommend'
+import { GENRES } from '../constants/genres'
 
 function Root() {
   const [title, setTitle] = useState('')
   const [genre, setGenre] = useState('')
+  const [sort, setSort] = useState('DESC')
   const navigate = useNavigate()
 
   const searchMovie = (e) => {
     e.preventDefault()
     const genreQuery = genre && `genre=${genre}`
     const titleQuery = title && `title=${title}`
-    const query = `?${[genreQuery, titleQuery].filter(Boolean).join('&')}`
+    const sortQuery = sort && `sort=${sort}`
+    const query = `?${[genreQuery, titleQuery, sortQuery].filter(Boolean).join('&')}`
     navigate(`/search${query}`)
   }
 
   return (
     <BaseLayout>
-      <div className="flex flex-col items-center justify-center gap-8 bg-white p-4">
-        <img src={Logo} alt="logo" className="w-1/2 py-8" />
-        <Card className="w-full max-w-xl p-6">
+      <div className="flex flex-col items-center gap-8 bg-white p-4">
+        <h2 className="w-full text-2xl font-bold md:text-4xl">인기 영화</h2>
+        <PopularCarousel />
+        <Card className="w-full p-6">
           <form
             onSubmit={searchMovie}
             className="flex w-full flex-col gap-6 lg:flex-row"
@@ -57,23 +49,66 @@ function Root() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
-              <Select
-                label="장르"
-                value={genre}
-                onChange={(val) => setGenre(val)}
-              >
-                {GENRES.map((genre) => (
-                  <Option value={genre.name} key={genre.key}>
-                    {genre.name}
-                  </Option>
-                ))}
-              </Select>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Select
+                  label="장르"
+                  value={genre}
+                  onChange={(val) => setGenre(val)}
+                >
+                  {GENRES.map((genre) => (
+                    <Option value={genre.name} key={genre.key}>
+                      {genre.name}
+                    </Option>
+                  ))}
+                </Select>
+                <div className="grid grid-cols-2">
+                  <Radio
+                    name="type"
+                    ripple={false}
+                    defaultChecked
+                    className="hover:before:opacity-0"
+                    label={
+                      <Typography
+                        color="blue-gray"
+                        className="font-medium text-blue-gray-400"
+                      >
+                        평점 높은 순
+                      </Typography>
+                    }
+                    onClick={() => setSort('DESC')}
+                  />
+                  <Radio
+                    name="type"
+                    ripple={false}
+                    className="hover:before:opacity-0"
+                    label={
+                      <Typography
+                        color="blue-gray"
+                        className="font-medium text-blue-gray-400"
+                      >
+                        평점 낮은 순
+                      </Typography>
+                    }
+                    onClick={() => setSort('ASC')}
+                  />
+                </div>
+              </div>
             </div>
             <Button type="submit" className="w-full lg:w-1/4 lg:text-lg">
               검색
             </Button>
           </form>
         </Card>
+        {sessionStorage.getItem('session') && (
+          <>
+            <h2 className="w-full text-2xl font-bold md:text-4xl">
+              좋아하는 영화
+            </h2>
+            <LikedMovies />
+            <h2 className="w-full text-2xl font-bold md:text-4xl">추천 영화</h2>
+            <LikedRecommend />
+          </>
+        )}
       </div>
     </BaseLayout>
   )

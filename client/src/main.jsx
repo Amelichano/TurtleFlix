@@ -9,12 +9,17 @@ import Root from './routes/root'
 import Register from './routes/register'
 import Login from './routes/login'
 import Search from './routes/search'
+import Details from './routes/details'
 
 const identifiedRouter = createBrowserRouter([
   { path: '/', element: <Root /> },
   {
     path: '/search',
     element: <Search />,
+  },
+  {
+    path: '/details/:tmdbId',
+    element: <Details />,
   },
 ])
 
@@ -27,6 +32,14 @@ const unidentifiedRouter = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/search',
+    element: <Search />,
+  },
+  {
+    path: '/details/:tmdbId',
+    element: <Details />,
   },
 ])
 
