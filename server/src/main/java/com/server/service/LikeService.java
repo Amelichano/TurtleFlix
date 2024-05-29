@@ -25,10 +25,10 @@ public class LikeService {
 
     private final MovieRepository movieRepository;
 
-    public void likeMovie(MemberSessionDto memberSession, Long movieId) {
+    public void likeMovie(MemberSessionDto memberSession, Long tmdbId) {
         Member member = memberRepository.findById(memberSession.getId())
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다"));
-        Movie movie = movieRepository.findById(movieId)
+        Movie movie = movieRepository.findByTmdbId(tmdbId)
                 .orElseThrow(() -> new IllegalArgumentException("영화를 찾을 수 없습니다"));
 
         if (!likeRepository.existsByMemberAndMovie(member, movie)) {
@@ -39,10 +39,10 @@ public class LikeService {
         }
     }
 
-    public boolean isMovieLikedByMember(MemberSessionDto memberSession, Long movieId) {
+    public boolean isMovieLikedByMember(MemberSessionDto memberSession, Long tmdbId) {
         Member member = memberRepository.findById(memberSession.getId())
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다"));
-        Movie movie = movieRepository.findById(movieId)
+        Movie movie = movieRepository.findByTmdbId(tmdbId)
                 .orElseThrow(() -> new IllegalArgumentException("영화를 찾을 수 없습니다"));
 
         return likeRepository.existsByMemberAndMovie(member, movie);
@@ -58,11 +58,11 @@ public class LikeService {
     }
 
     @Transactional
-    public void deleteLike(Long memberId, Long movieId) {
+    public void deleteLike(Long memberId, Long tmdbId) {
         Optional<Member> member = memberRepository.findById(memberId);
         Member findMember = member.get();
 
-        Optional<Movie> movie = movieRepository.findById(movieId);
+        Optional<Movie> movie = movieRepository.findByTmdbId(tmdbId);
         Movie findMovie = movie.get();
         likeRepository.deleteByMemberAndMovie(findMember, findMovie);
     }

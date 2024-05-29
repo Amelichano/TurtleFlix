@@ -22,20 +22,20 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/like")
-    public ResponseEntity<Void> likeMovie(HttpServletRequest request, @RequestParam Long movieId) {
+    public ResponseEntity<Void> likeMovie(HttpServletRequest request, @RequestParam Long tmdbId) {
         HttpSession session = request.getSession(false);
 
         MemberSessionDto memberSession = (MemberSessionDto) session.getAttribute(SESSION_KEY);
-        likeService.likeMovie(memberSession, movieId);
+        likeService.likeMovie(memberSession, tmdbId);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/isLiked")
-    public ResponseEntity<Boolean> isMovieLikedByMember(HttpServletRequest request, @RequestParam Long movieId) {
+    public ResponseEntity<Boolean> isMovieLikedByMember(HttpServletRequest request, @RequestParam Long tmdbId) {
         HttpSession session = request.getSession(false);
 
         MemberSessionDto memberSession = (MemberSessionDto) session.getAttribute(SESSION_KEY);
-        boolean isLiked = likeService.isMovieLikedByMember(memberSession, movieId);
+        boolean isLiked = likeService.isMovieLikedByMember(memberSession, tmdbId);
         return ResponseEntity.ok(isLiked);
     }
 
@@ -47,11 +47,11 @@ public class LikeController {
         return ResponseEntity.ok(likedMovies);
     }
 
-    @DeleteMapping("/deleteLike/{movieId}")
-    public ResponseEntity<?> deleteLike(@PathVariable Long movieId, HttpServletRequest request){
+    @DeleteMapping("/deleteLike/{tmdbId}")
+    public ResponseEntity<?> deleteLike(@PathVariable Long tmdbId, HttpServletRequest request){
         HttpSession session = request.getSession(false);
         MemberSessionDto dto = (MemberSessionDto) session.getAttribute(SESSION_KEY);
-        likeService.deleteLike(dto.getId(), movieId);
+        likeService.deleteLike(dto.getId(), tmdbId);
         return ResponseEntity.ok().build();
     }
 }
