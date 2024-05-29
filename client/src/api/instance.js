@@ -14,10 +14,4 @@ tmdbInstance.interceptors.request.use((config) => {
   return config
 })
 
-serverInstance.interceptors.request.use((config) => {
-  const session = sessionStorage.getItem('session')
-  if (session) config.data = session
-  return config
-})
-
 export { tmdbInstance, serverInstance }

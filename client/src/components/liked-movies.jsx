@@ -10,7 +10,6 @@ function LikedMovies() {
     const fetchLikedMovies = async () => {
       const response = await getLikedMovies()
       setLiked(response)
-      console.log(response)
     }
 
     fetchLikedMovies()

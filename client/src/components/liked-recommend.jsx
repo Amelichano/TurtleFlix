@@ -10,7 +10,6 @@ function LikecRecommend() {
     const fetchRecommendations = async () => {
       const response = await getLikedRecommendations()
       setRecommendations(response.data)
-      console.log(response)
     }
 
     fetchRecommendations()
