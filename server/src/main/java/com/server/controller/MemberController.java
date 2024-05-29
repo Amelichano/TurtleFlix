@@ -33,11 +33,11 @@ public class MemberController {
 
     @ResponseBody
     @PostMapping("/login") //로그인 (request : loginId, password / response : (session)id, loginId, username)
-    public LoginResponseDto login(@Valid @RequestBody LoginFormDto loginFormDto, HttpServletRequest request){
+    public String login(@Valid @RequestBody LoginFormDto loginFormDto, HttpServletRequest request){
         MemberSessionDto memberSession = memberService.login(loginFormDto.getLoginId(), loginFormDto.getPassword());
         HttpSession session = request.getSession();
         session.setAttribute(SESSION_KEY, memberSession);
-        return new LoginResponseDto(memberSession.getId(), memberSession.getLoginId(), memberSession.getUsername());
+        return session.getId();
     }
 
     @GetMapping("/logout") //로그아웃
