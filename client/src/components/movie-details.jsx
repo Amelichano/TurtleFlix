@@ -39,7 +39,7 @@ function MovieDetails() {
 
       const fetchIsLiked = async () => {
         const response = await getIsLiked(tmdbId)
-        setIsLiked(response.isLiked)
+        setIsLiked(response)
       }
 
       fetchTmdbDetails()

@@ -20,12 +20,12 @@ const getRecommendations = async (id) => {
 }
 
 const getIsLiked = async (movieId) => {
-  const response = await serverInstance.get(`/api/isLiked?movieId=${movieId}`)
+  const response = await serverInstance.get(`/api/isLiked?tmdbId=${movieId}`)
   return response.data
 }
 
 const postLike = async (movieId) => {
-  const response = await serverInstance.post(`/api/like?movieId=${movieId}`)
+  const response = await serverInstance.post(`/api/like?tmdbId=${movieId}`)
   return response.data
 }
 
