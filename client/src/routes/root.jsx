@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 
 import BaseLayout from '../layouts/base-layout'
 import PopularCarousel from '../components/popular-carousel'
+import LikedMovies from '../components/liked-movies'
 import LikedRecommend from '../components/liked-recommend'
 import { GENRES } from '../constants/genres'
 
@@ -100,6 +101,10 @@ function Root() {
         </Card>
         {sessionStorage.getItem('session') && (
           <>
+            <h2 className="w-full text-2xl font-bold md:text-4xl">
+              좋아하는 영화
+            </h2>
+            <LikedMovies />
             <h2 className="w-full text-2xl font-bold md:text-4xl">추천 영화</h2>
             <LikedRecommend />
           </>
