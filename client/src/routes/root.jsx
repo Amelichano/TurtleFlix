@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 
 import BaseLayout from '../layouts/base-layout'
 import PopularCarousel from '../components/popular-carousel'
+import LikedRecommend from '../components/liked-recommend'
 import { GENRES } from '../constants/genres'
 
 function Root() {
@@ -97,6 +98,12 @@ function Root() {
             </Button>
           </form>
         </Card>
+        {sessionStorage.getItem('session') && (
+          <>
+            <h2 className="w-full text-2xl font-bold md:text-4xl">추천 영화</h2>
+            <LikedRecommend />
+          </>
+        )}
       </div>
     </BaseLayout>
   )
