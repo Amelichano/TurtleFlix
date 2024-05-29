@@ -1,52 +1,61 @@
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Typography,
+} from '@material-tailwind/react'
+
 function MovieDetailsSkeleton() {
-    return (
-        <div className="container mx-auto mt-6">
-            <div className="animate-pulse">
-                <div className="p-4 border border-gray-300 rounded-lg shadow-lg">
-                    <div className="flex flex-row">
-                        <div className="w-1/3">
-                            <div className="h-full w-full bg-gray-300" />
-                        </div>
-                        <div className="w-2/3 pl-4">
-                            <h1 className="mb-2 text-2xl font-semibold text-blue-gray-900">&nbsp;</h1>
-                            <p className="mb-4 text-base font-light">&nbsp;</p>
-                            <p className="mb-4 text-base font-light">&nbsp;</p>
-                            <div className="mb-4 flex items-center">
-                                <strong className="mr-2">&nbsp;</strong>
-                                <span className="ml-2 text-base font-light">&nbsp;</span>
-                                <span className="ml-2 text-base font-light">&nbsp;</span>
-                            </div>
-                            <p className="mb-2 text-base font-light">
-                                <strong>&nbsp;</strong>
-                            </p>
-                            <p className="mb-2 text-base font-light">
-                                <strong>&nbsp;</strong>
-                            </p>
-                            <p className="mb-2 text-base font-light">
-                                <strong>&nbsp;</strong>
-                            </p>
-                            <p className="mb-2 text-base font-light">
-                                <strong>&nbsp;</strong>
-                            </p>
-                            <p className="mb-2 text-base font-light">
-                                <strong>&nbsp;</strong> 
-                            </p>
-                            <p className="mb-2 text-base font-light">
-                                <strong>&nbsp;</strong>
-                            </p>
-                            <div className="flex gap-4 mt-4">
-                                <a>&nbsp;</a>
-                                <a>&nbsp;</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="mt-10 p-4 border border-gray-300 rounded-lg shadow-lg">
-                    <h2 className="mb-4 text-xl font-semibold text-blue-gray-900 mb-4">&nbsp;</h2>
-                </div>
-            </div>
+  return (
+    <Card className="w-full animate-pulse flex-col md:flex-row">
+      <CardHeader
+        shadow={false}
+        floated={false}
+        className="m-0 w-full shrink-0 md:w-2/5 md:rounded-r-none"
+      >
+        <div className="h-full w-full bg-gray-300" />
+      </CardHeader>
+      <CardBody className="flex w-full flex-col justify-between gap-8">
+        <div className="flex flex-col gap-2">
+          <Typography
+            variant="h6"
+            color="gray"
+            className="mb-2 rounded-full bg-gray-300 uppercase"
+          >
+            &nbsp;
+          </Typography>
+          <Typography
+            variant="h4"
+            color="blue-gray"
+            className="rounded-full bg-gray-300"
+          >
+            &nbsp;
+          </Typography>
+          <Typography
+            color="gray"
+            className="h-40 w-full rounded-3xl bg-gray-300 font-normal"
+          >
+            &nbsp;
+          </Typography>
         </div>
-    )
+        <div className="flex flex-col gap-2 uppercase">
+          <Typography className="mb-6 h-10 rounded-full bg-gray-300">
+            &nbsp;
+          </Typography>
+          <Typography className="rounded-full bg-gray-300">&nbsp;</Typography>
+          <Typography className="rounded-full bg-gray-300">&nbsp;</Typography>
+          <Typography className="rounded-full bg-gray-300">&nbsp;</Typography>
+          <Typography className="rounded-full bg-gray-300">&nbsp;</Typography>
+          <Typography className="rounded-full bg-gray-300">&nbsp;</Typography>
+          <Typography className="rounded-full bg-gray-300">&nbsp;</Typography>
+        </div>
+        <div className="flex gap-4">
+          <div className="h-10 w-20 rounded-lg bg-gray-300" />
+          <div className="h-10 w-20 rounded-lg bg-gray-300" />
+        </div>
+      </CardBody>
+    </Card>
+  )
 }
 
 export default MovieDetailsSkeleton

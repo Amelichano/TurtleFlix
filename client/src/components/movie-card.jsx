@@ -1,11 +1,5 @@
 import { Link } from 'react-router-dom'
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Button,
-} from '@material-tailwind/react'
+import { Card, CardHeader, CardBody } from '@material-tailwind/react'
 import { getDetails } from '../api/movies'
 import { useEffect, useState } from 'react'
 import MovieCardSkeleton from './movie-card-skeleton'
