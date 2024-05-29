@@ -1,15 +1,15 @@
-import MovieDetails from '../components/movie-details';
+import MovieDetails from '../components/movie-details'
 
 import BaseLayout from '../layouts/base-layout'
 
-function PrintMovieDetails() {
+function Details() {
   return (
     <BaseLayout>
       <div className="test-movie-details">
-        <MovieDetails/>
+        <MovieDetails />
       </div>
     </BaseLayout>
-  );
+  )
 }
 
-export default PrintMovieDetails;
+export default Details
