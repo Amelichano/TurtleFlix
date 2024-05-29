@@ -13,7 +13,9 @@ const getPopular = async () => {
 }
 
 const getRecommendations = async (id) => {
-  const response = await tmdbInstance.get(`/movie/${id}/recommendations`)
+  const response = await tmdbInstance.get(
+    `/movie/${id}/recommendations?language=ko-KR`,
+  )
   return response.data
 }
 
