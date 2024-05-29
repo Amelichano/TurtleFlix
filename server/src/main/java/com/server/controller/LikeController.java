@@ -47,7 +47,7 @@ public class LikeController {
         return ResponseEntity.ok(likedMovies);
     }
 
-    @DeleteMapping("/deleteLike/{tmdbId}")
+    @PostMapping("/deleteLike/{tmdbId}")
     public ResponseEntity<?> deleteLike(@PathVariable Long tmdbId, HttpServletRequest request){
         HttpSession session = request.getSession(false);
         MemberSessionDto dto = (MemberSessionDto) session.getAttribute(SESSION_KEY);

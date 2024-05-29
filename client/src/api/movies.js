@@ -29,8 +29,8 @@ const postLike = async (movieId) => {
   return response.data
 }
 
-const deleteLike = async (movieId) => {
-  const response = await serverInstance.delete(`/api/deleteLike/${movieId}`)
+const postDeleteLike = async (movieId) => {
+  const response = await serverInstance.post(`/api/deleteLike/${movieId}`)
   return response.data
 }
 
@@ -50,7 +50,7 @@ export {
   getRecommendations,
   getIsLiked,
   postLike,
-  deleteLike,
+  postDeleteLike,
   getLikedRecommendations,
   getLikedMovies,
 }
