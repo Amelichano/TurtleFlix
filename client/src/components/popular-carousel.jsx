@@ -11,7 +11,6 @@ function PopularCarousel() {
     async function getPopularMovies() {
       const popularMovies = await getPopular()
       setPopular(popularMovies.results.slice(0, 10))
-      console.log(popularMovies.results.slice(0, 10))
     }
 
     getPopularMovies()

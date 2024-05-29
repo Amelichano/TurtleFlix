@@ -1,42 +1,31 @@
 import React, { useState } from 'react'
-import { Card, Input, Button, Select, Option } from '@material-tailwind/react'
+import {
+  Card,
+  Input,
+  Button,
+  Select,
+  Option,
+  Typography,
+  Radio,
+} from '@material-tailwind/react'
 import { useNavigate } from 'react-router-dom'
 
 import BaseLayout from '../layouts/base-layout'
 import PopularCarousel from '../components/popular-carousel'
-
-const GENRES = [
-  { key: 'gen1', name: 'Adventure' },
-  { key: 'gen2', name: 'Animation' },
-  { key: 'gen3', name: 'Children' },
-  { key: 'gen4', name: 'Comedy' },
-  { key: 'gen5', name: 'Fantasy' },
-  { key: 'gen6', name: 'Romance' },
-  { key: 'gen7', name: 'Drama' },
-  { key: 'gen8', name: 'Action' },
-  { key: 'gen9', name: 'Crime' },
-  { key: 'gen10', name: 'Thriller' },
-  { key: 'gen11', name: 'Horror' },
-  { key: 'gen12', name: 'Mystery' },
-  { key: 'gen13', name: 'Sci-Fi' },
-  { key: 'gen14', name: 'War' },
-  { key: 'gen15', name: 'Musical' },
-  { key: 'gen16', name: 'Documentary' },
-  { key: 'gen17', name: 'IMAX' },
-  { key: 'gen18', name: 'Western' },
-  { key: 'gen19', name: 'Film-Noir' },
-]
+import { GENRES } from '../constants/genres'
 
 function Root() {
   const [title, setTitle] = useState('')
   const [genre, setGenre] = useState('')
+  const [sort, setSort] = useState('DESC')
   const navigate = useNavigate()
 
   const searchMovie = (e) => {
     e.preventDefault()
     const genreQuery = genre && `genre=${genre}`
     const titleQuery = title && `title=${title}`
-    const query = `?${[genreQuery, titleQuery].filter(Boolean).join('&')}`
+    const sortQuery = sort && `sort=${sort}`
+    const query = `?${[genreQuery, titleQuery, sortQuery].filter(Boolean).join('&')}`
     navigate(`/search${query}`)
   }
 
@@ -58,17 +47,50 @@ function Root() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
-              <Select
-                label="장르"
-                value={genre}
-                onChange={(val) => setGenre(val)}
-              >
-                {GENRES.map((genre) => (
-                  <Option value={genre.name} key={genre.key}>
-                    {genre.name}
-                  </Option>
-                ))}
-              </Select>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Select
+                  label="장르"
+                  value={genre}
+                  onChange={(val) => setGenre(val)}
+                >
+                  {GENRES.map((genre) => (
+                    <Option value={genre.name} key={genre.key}>
+                      {genre.name}
+                    </Option>
+                  ))}
+                </Select>
+                <div className="grid grid-cols-2">
+                  <Radio
+                    name="type"
+                    ripple={false}
+                    defaultChecked
+                    className="hover:before:opacity-0"
+                    label={
+                      <Typography
+                        color="blue-gray"
+                        className="font-medium text-blue-gray-400"
+                      >
+                        평점 높은 순
+                      </Typography>
+                    }
+                    onClick={() => setSort('DESC')}
+                  />
+                  <Radio
+                    name="type"
+                    ripple={false}
+                    className="hover:before:opacity-0"
+                    label={
+                      <Typography
+                        color="blue-gray"
+                        className="font-medium text-blue-gray-400"
+                      >
+                        평점 낮은 순
+                      </Typography>
+                    }
+                    onClick={() => setSort('ASC')}
+                  />
+                </div>
+              </div>
             </div>
             <Button type="submit" className="w-full lg:w-1/4 lg:text-lg">
               검색

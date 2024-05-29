@@ -11,6 +11,7 @@ function Search() {
   const [searchParams] = useSearchParams()
   const genre = searchParams.get('genre')
   const title = searchParams.get('title')
+  const sort = searchParams.get('sort')
 
   const [movieCount, setMovieCount] = useState(0)
   const [totalPages, setTotalPages] = useState(1)
@@ -18,12 +19,12 @@ function Search() {
   const [movies, setMovies] = useState([])
 
   useEffect(() => {
-    getSearch(genre, title, page).then((result) => {
+    getSearch(genre, title, sort, page).then((result) => {
       setMovies(result.data)
       setMovieCount(result.pageInfo.totalElements)
       setTotalPages(result.pageInfo.totalPages)
     })
-  }, [genre, title, page])
+  }, [genre, title, page, sort])
 
   const next = () => {
     if (page === totalPages) return
