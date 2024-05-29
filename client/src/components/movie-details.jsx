@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Rating, IconButton } from '@material-tailwind/react'
+import {
+  Button,
+  Rating,
+  Card,
+  CardHeader,
+  CardBody,
+  Typography,
+} from '@material-tailwind/react'
+import { useParams } from 'react-router-dom'
+import { ArrowRightIcon } from '@radix-ui/react-icons'
+
 import { getDetails } from '../api/movies'
 import MovieDetailsSkeleton from './movie-details-skeleton'
-import { useParams } from 'react-router-dom'
 
 function MovieDetails() {
   const { tmdbId } = useParams()
@@ -15,6 +24,7 @@ function MovieDetails() {
         try {
           const tmdbData = await getDetails(tmdbId)
           setDetails(tmdbData)
+          console.log(tmdbData)
         } catch (error) {
           console.error('TMDB details 오류 발생:', error)
         } finally {
@@ -29,79 +39,86 @@ function MovieDetails() {
   return isLoading ? (
     <MovieDetailsSkeleton />
   ) : (
-    <div className="rounded-lg border border-gray-300 p-4 shadow-lg">
-      <div className="flex flex-row">
-        <div className="w-1/3">
-          <img
-            src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
-            alt={details.title}
-            className="h-full w-full rounded-lg object-cover"
-          />
-        </div>
-        <div className="w-2/3 pl-4">
-          <h1 className="mb-2 text-2xl font-semibold text-blue-gray-900">
+    <Card className="w-full flex-col md:flex-row">
+      <CardHeader
+        shadow={false}
+        floated={false}
+        className="m-0 w-full shrink-0 md:w-2/5 md:rounded-r-none"
+      >
+        <img
+          src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
+          alt={details.title}
+          className="h-full w-full object-cover"
+        />
+      </CardHeader>
+      <CardBody className="flex flex-col justify-between gap-8">
+        <div className="flex flex-col gap-2">
+          <Typography variant="h6" color="gray" className="mb-2 uppercase">
+            {details.tagline}
+          </Typography>
+          <Typography variant="h4" color="blue-gray">
             {details.title}
-          </h1>
-          <p className="mb-4 text-base font-light">{details.tagline}</p>
-          <p className="mb-4 text-base font-light">{details.overview}</p>
-          <div className="mb-4 flex items-center">
-            <strong className="mr-2">평점:</strong>
-            <span className="ml-2 text-base font-light">
-              {details.vote_average} / 10
-            </span>
+          </Typography>
+          <Typography color="gray" className="font-normal">
+            {details.overview}
+          </Typography>
+        </div>
+        <div className="flex flex-col gap-2 uppercase">
+          <div className="mb-6 flex items-center gap-2 font-bold text-blue-gray-500">
+            {Math.round(details.vote_average * 5) / 10}
             <Rating value={Math.round(details.vote_average / 2)} readonly />
+            <Typography
+              color="blue-gray"
+              className="font-medium text-blue-gray-500"
+            >
+              {details.vote_count} 리뷰
+            </Typography>
           </div>
-          <p className="mb-2 text-base font-light">
-            <strong>장르:</strong>{' '}
-            {details.genres?.map((genre) => genre.name).join(', ')}
-          </p>
-          <p className="mb-2 text-base font-light">
-            <strong>러닝타임:</strong>{' '}
+          <Typography color="gray">
+            장르: {details.genres?.map((genre) => genre.name).join(', ')}
+          </Typography>
+          <Typography color="gray">
+            러닝타임:
             {details.runtime ? `${details.runtime} 분` : '정보 없음'}
-          </p>
-          <p className="mb-2 text-base font-light">
-            <strong>개봉일:</strong> {details.release_date}
-          </p>
-          <p className="mb-2 text-base font-light">
-            <strong>제작사:</strong>{' '}
+          </Typography>
+          <Typography color="gray">개봉일: {details.release_date}</Typography>
+          <Typography color="gray">
+            제작사:
             {details.production_companies
               ?.map((company) => company.name)
               .join(', ')}
-          </p>
-          <p className="mb-2 text-base font-light">
-            <strong>국가:</strong>{' '}
+          </Typography>
+          <Typography color="gray">
+            국가:
             {details.production_countries
               ?.map((country) => country.name)
               .join(', ')}
-          </p>
-          <p className="mb-2 text-base font-light">
-            <strong>언어:</strong>{' '}
+          </Typography>
+          <Typography color="gray">
+            언어:
             {details.spoken_languages
               ?.map((language) => language.name)
               .join(', ')}
-          </p>
-          <div className="mt-4 flex gap-4">
-            <a
-              href={`https://www.themoviedb.org/movie/${tmdbId}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button color="blue">더 찾아보기</Button>
-            </a>
-            <a
-              href={details.homepage}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+          </Typography>
+        </div>
+        <div className="flex gap-4">
+          <a
+            href={`https://www.themoviedb.org/movie/${tmdbId}`}
+            className="inline-block"
+          >
+            <Button color="blue" className="flex items-center gap-2">
+              더 알아보기
+              <ArrowRightIcon className="h-4 w-4" />
+            </Button>
+          </a>
+          {details.homepage && (
+            <a href={details.homepage} className="inline-block">
               <Button color="green">공식 홈페이지</Button>
             </a>
-            <IconButton>
-              <i className="fas fa-heart" />
-            </IconButton>
-          </div>
+          )}
         </div>
-      </div>
-    </div>
+      </CardBody>
+    </Card>
   )
 }
 
