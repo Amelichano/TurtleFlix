@@ -34,6 +34,11 @@ const deleteLike = async (movieId) => {
   return response.data
 }
 
+const getLikedRecommendations = async () => {
+  const response = await tmdbInstance.get('/api/recommendations')
+  return response.data
+}
+
 export {
   getDetails,
   getPopular,
@@ -41,4 +46,5 @@ export {
   getIsLiked,
   postLike,
   deleteLike,
+  getLikedRecommendations,
 }
