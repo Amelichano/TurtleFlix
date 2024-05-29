@@ -6,6 +6,7 @@ const tmdbInstance = axios.create({
 
 const serverInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_BASE_URL,
+  withCredentials: true,
 })
 
 tmdbInstance.interceptors.request.use((config) => {
