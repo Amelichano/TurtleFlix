@@ -6,16 +6,22 @@ import {
   CardHeader,
   CardBody,
   Typography,
+  IconButton,
 } from '@material-tailwind/react'
 import { useParams } from 'react-router-dom'
-import { ArrowRightIcon } from '@radix-ui/react-icons'
+import {
+  ArrowRightIcon,
+  HeartFilledIcon,
+  HeartIcon,
+} from '@radix-ui/react-icons'
 
-import { getDetails } from '../api/movies'
+import { deleteLike, getDetails, getIsLiked, postLike } from '../api/movies'
 import MovieDetailsSkeleton from './movie-details-skeleton'
 
 function MovieDetails() {
   const { tmdbId } = useParams()
   const [isLoading, setIsLoading] = useState(true)
+  const [isLiked, setIsLiked] = useState(false)
   const [details, setDetails] = useState({})
 
   useEffect(() => {
@@ -24,7 +30,6 @@ function MovieDetails() {
         try {
           const tmdbData = await getDetails(tmdbId)
           setDetails(tmdbData)
-          console.log(tmdbData)
         } catch (error) {
           console.error('TMDB details 오류 발생:', error)
         } finally {
@@ -32,9 +37,33 @@ function MovieDetails() {
         }
       }
 
+      const fetchIsLiked = async () => {
+        const response = await getIsLiked(tmdbId)
+        setIsLiked(response.isLiked)
+      }
+
       fetchTmdbDetails()
+      fetchIsLiked()
     }
   }, [tmdbId])
+
+  const handleLike = async () => {
+    try {
+      await postLike(tmdbId)
+      setIsLiked(true)
+    } catch (error) {
+      console.error('좋아요 오류 발생:', error)
+    }
+  }
+
+  const handleUnlike = async () => {
+    try {
+      await deleteLike(tmdbId)
+      setIsLiked(false)
+    } catch (error) {
+      console.error('좋아요 취소 오류 발생:', error)
+    }
+  }
 
   return isLoading ? (
     <MovieDetailsSkeleton />
@@ -51,11 +80,23 @@ function MovieDetails() {
           className="h-full w-full object-cover"
         />
       </CardHeader>
-      <CardBody className="flex flex-col justify-between gap-8">
+      <CardBody className="flex w-full flex-col justify-between gap-8">
         <div className="flex flex-col gap-2">
-          <Typography variant="h6" color="gray" className="mb-2 uppercase">
-            {details.tagline}
-          </Typography>
+          <div className="flex items-center justify-between">
+            <Typography variant="h6" color="gray" className="mb-2 uppercase">
+              {details.tagline}
+            </Typography>
+            <IconButton
+              variant="text"
+              onClick={isLiked ? handleUnlike : handleLike}
+            >
+              {isLiked ? (
+                <HeartFilledIcon className="h-6 w-6 text-red-500" />
+              ) : (
+                <HeartIcon className="h-6 w-6 text-red-500" />
+              )}
+            </IconButton>
+          </div>
           <Typography variant="h4" color="blue-gray">
             {details.title}
           </Typography>
