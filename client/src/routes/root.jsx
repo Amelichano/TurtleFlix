@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
-import { Card, Input, Button, Select, Option } from '@material-tailwind/react'
+import {
+  Card,
+  Input,
+  Button,
+  Select,
+  Option,
+  Typography,
+  Radio,
+} from '@material-tailwind/react'
 import { useNavigate } from 'react-router-dom'
 
 import BaseLayout from '../layouts/base-layout'
@@ -9,13 +17,15 @@ import { GENRES } from '../constants/genres'
 function Root() {
   const [title, setTitle] = useState('')
   const [genre, setGenre] = useState('')
+  const [sort, setSort] = useState('DESC')
   const navigate = useNavigate()
 
   const searchMovie = (e) => {
     e.preventDefault()
     const genreQuery = genre && `genre=${genre}`
     const titleQuery = title && `title=${title}`
-    const query = `?${[genreQuery, titleQuery].filter(Boolean).join('&')}`
+    const sortQuery = sort && `sort=${sort}`
+    const query = `?${[genreQuery, titleQuery, sortQuery].filter(Boolean).join('&')}`
     navigate(`/search${query}`)
   }
 
@@ -37,17 +47,50 @@ function Root() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
-              <Select
-                label="장르"
-                value={genre}
-                onChange={(val) => setGenre(val)}
-              >
-                {GENRES.map((genre) => (
-                  <Option value={genre.name} key={genre.key}>
-                    {genre.name}
-                  </Option>
-                ))}
-              </Select>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Select
+                  label="장르"
+                  value={genre}
+                  onChange={(val) => setGenre(val)}
+                >
+                  {GENRES.map((genre) => (
+                    <Option value={genre.name} key={genre.key}>
+                      {genre.name}
+                    </Option>
+                  ))}
+                </Select>
+                <div className="grid grid-cols-2">
+                  <Radio
+                    name="type"
+                    ripple={false}
+                    defaultChecked
+                    className="hover:before:opacity-0"
+                    label={
+                      <Typography
+                        color="blue-gray"
+                        className="font-medium text-blue-gray-400"
+                      >
+                        평점 높은 순
+                      </Typography>
+                    }
+                    onClick={() => setSort('DESC')}
+                  />
+                  <Radio
+                    name="type"
+                    ripple={false}
+                    className="hover:before:opacity-0"
+                    label={
+                      <Typography
+                        color="blue-gray"
+                        className="font-medium text-blue-gray-400"
+                      >
+                        평점 낮은 순
+                      </Typography>
+                    }
+                    onClick={() => setSort('ASC')}
+                  />
+                </div>
+              </div>
             </div>
             <Button type="submit" className="w-full lg:w-1/4 lg:text-lg">
               검색
