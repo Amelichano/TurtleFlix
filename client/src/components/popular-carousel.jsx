@@ -19,7 +19,11 @@ function PopularCarousel() {
   return (
     <Carousel className="w-full rounded-xl">
       {popular.map((movie) => (
-        <Link to={`/details/${movie.id}`} className="group relative">
+        <Link
+          to={`/details/${movie.id}`}
+          className="group relative"
+          key={movie.id}
+        >
           <img
             src={`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`}
             className="h-80 w-full object-cover brightness-50 transition group-hover:brightness-[.35] md:aspect-video md:h-full"
