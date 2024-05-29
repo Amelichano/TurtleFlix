@@ -34,6 +34,16 @@ const deleteLike = async (movieId) => {
   return response.data
 }
 
+const getLikedRecommendations = async () => {
+  const response = await serverInstance.get('/api/recommendations')
+  return response.data
+}
+
+const getLikedMovies = async () => {
+  const response = await serverInstance.get('/api/likedMovies')
+  return response.data
+}
+
 export {
   getDetails,
   getPopular,
@@ -41,4 +51,6 @@ export {
   getIsLiked,
   postLike,
   deleteLike,
+  getLikedRecommendations,
+  getLikedMovies,
 }
