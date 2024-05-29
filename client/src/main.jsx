@@ -33,6 +33,14 @@ const unidentifiedRouter = createBrowserRouter([
     path: '/login',
     element: <Login />,
   },
+  {
+    path: '/search',
+    element: <Search />,
+  },
+  {
+    path: '/details/:tmdbId',
+    element: <Details />,
+  },
 ])
 
 const router = sessionStorage.getItem('session')
